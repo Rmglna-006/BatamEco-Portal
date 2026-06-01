@@ -1,0 +1,826 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Batam EcoPortal</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        :root {
+            --teal: #1a5c4f;
+            --teal-dark: #14453a;
+            --teal-light: #2a7a6a;
+            --yellow: #f5c518;
+            --yellow-dark: #e6b800;
+            --text: #1a1a1a;
+            --text-muted: #6b7280;
+            --bg: #f0f4f8;
+            --card: #ffffff;
+            --border: #e5e7eb;
+            --green-accent: #16a34a;
+            --red: #dc2626;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+        }
+
+        /* NAVBAR */
+        nav {
+            background: var(--teal);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 40px;
+            height: 56px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #fff;
+            font-size: 18px;
+            font-weight: 700;
+            text-decoration: none;
+        }
+
+        .nav-logo svg {
+            width: 28px;
+            height: 28px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 32px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: rgba(255, 255, 255, 0.85);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: var(--yellow);
+            border-bottom: 2px solid var(--yellow);
+            padding-bottom: 2px;
+        }
+
+        .nav-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn-register {
+            background: transparent;
+            border: 1.5px solid rgba(255, 255, 255, 0.6);
+            color: #fff;
+            padding: 7px 18px;
+            border-radius: 6px;
+            font-size: 14px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.2s;
+        }
+
+        .btn-register:hover {
+            border-color: #fff;
+        }
+
+        .btn-login {
+            background: var(--yellow);
+            color: var(--teal-dark);
+            padding: 7px 20px;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 700;
+            border: none;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .btn-login:hover {
+            background: var(--yellow-dark);
+        }
+
+        /* HERO SLIDER */
+        .hero {
+            position: relative;
+            height: 520px;
+            overflow: hidden;
+            background: linear-gradient(180deg, #4a6741 0%, #2d4a2a 50%, #1a2d18 100%);
+        }
+
+        .hero-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .hero-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to right, rgba(0, 0, 0, 0.45) 0%, rgba(0, 0, 0, 0.1) 100%);
+        }
+
+        .hero-content {
+            position: absolute;
+            bottom: 80px;
+            left: 80px;
+            color: #fff;
+            max-width: 520px;
+        }
+
+        .hero-content h1 {
+            font-size: 36px;
+            font-weight: 800;
+            line-height: 1.25;
+            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+        }
+
+        .hero-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255, 255, 255, 0.2);
+            border: 2px solid rgba(255, 255, 255, 0.5);
+            color: #fff;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 18px;
+            transition: background 0.2s;
+        }
+
+        .hero-arrow:hover {
+            background: rgba(255, 255, 255, 0.35);
+        }
+
+        .hero-arrow.left {
+            left: 24px;
+        }
+
+        .hero-arrow.right {
+            right: 24px;
+        }
+
+        /* ECOPULSE CARD */
+        .ecopulse-wrap {
+            background: #fff;
+            margin: 0;
+            padding: 32px 80px;
+        }
+
+        .ecopulse-card {
+            background: #f8fafc;
+            border-radius: 12px;
+            padding: 28px 32px;
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 24px;
+        }
+
+        .live-badge {
+            display: inline-block;
+            background: var(--yellow);
+            color: var(--teal-dark);
+            font-size: 11px;
+            font-weight: 700;
+            padding: 3px 10px;
+            border-radius: 4px;
+            margin-bottom: 12px;
+            letter-spacing: 0.5px;
+        }
+
+        .ecopulse-card h2 {
+            font-size: 30px;
+            font-weight: 800;
+            margin-bottom: 12px;
+        }
+
+        .ecopulse-card p {
+            font-size: 14px;
+            color: var(--text-muted);
+            line-height: 1.6;
+            max-width: 480px;
+            margin-bottom: 20px;
+        }
+
+        .btn-detail {
+            background: var(--teal);
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 7px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .btn-detail:hover {
+            background: var(--teal-dark);
+        }
+
+        .eco-stats {
+            display: flex;
+            gap: 12px;
+        }
+
+        .eco-stat-card {
+            background: #fff;
+            border-radius: 10px;
+            padding: 20px 28px;
+            text-align: center;
+            min-width: 120px;
+            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+        }
+
+        .eco-stat-card .stat-icon {
+            font-size: 28px;
+            margin-bottom: 4px;
+        }
+
+        .eco-stat-card .stat-value {
+            font-size: 28px;
+            font-weight: 800;
+        }
+
+        .eco-stat-card .stat-label {
+            font-size: 12px;
+            color: var(--text-muted);
+            margin-top: 2px;
+        }
+
+        .aqi-badge {
+            background: #dcfce7;
+            color: #16a34a;
+            font-size: 11px;
+            font-weight: 700;
+            padding: 3px 8px;
+            border-radius: 4px;
+            margin-top: 4px;
+            display: inline-block;
+        }
+
+        /* ENVIRONMENTAL METRICS */
+        .metrics-section {
+            padding: 40px 80px;
+            background: #fff;
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 24px;
+        }
+
+        .section-header h2 {
+            font-size: 26px;
+            font-weight: 800;
+        }
+
+        .view-all {
+            color: var(--teal);
+            font-size: 14px;
+            font-weight: 600;
+            text-decoration: none;
+        }
+
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+        }
+
+        .metric-card {
+            background: #fff;
+            border: 1.5px solid var(--border);
+            border-radius: 10px;
+            padding: 20px 22px;
+        }
+
+        .metric-card-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 16px;
+        }
+
+        .metric-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+        }
+
+        .metric-icon.forest {
+            background: #dcfce7;
+        }
+
+        .metric-icon.emission {
+            background: #dbeafe;
+        }
+
+        .metric-icon.renewable {
+            background: #fef9c3;
+        }
+
+        .metric-card h3 {
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        .metric-card .metric-value {
+            font-size: 32px;
+            font-weight: 800;
+            margin-bottom: 6px;
+        }
+
+        .metric-card .metric-desc {
+            font-size: 13px;
+            color: var(--text-muted);
+            line-height: 1.5;
+        }
+
+        /* FOOTER */
+        footer {
+            background: var(--teal-dark);
+            color: rgba(255, 255, 255, 0.85);
+            padding: 36px 80px;
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+        }
+
+        .footer-brand .logo {
+            font-size: 16px;
+            font-weight: 700;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 10px;
+        }
+
+        .footer-brand p {
+            font-size: 12px;
+            color: rgba(255, 255, 255, 0.6);
+            line-height: 1.6;
+            max-width: 260px;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 28px;
+        }
+
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            font-size: 13px;
+            transition: color 0.2s;
+        }
+
+        .footer-links a:hover {
+            color: #fff;
+        }
+
+        /* SIDEBAR LAYOUT (for dashboard pages) */
+        .app-layout {
+            display: flex;
+            min-height: calc(100vh - 56px);
+        }
+
+        .sidebar {
+            width: 200px;
+            background: #fff;
+            border-right: 1px solid var(--border);
+            padding: 20px 0;
+            flex-shrink: 0;
+        }
+
+        .sidebar-header {
+            padding: 0 18px 16px;
+            border-bottom: 1px solid var(--border);
+            margin-bottom: 10px;
+        }
+
+        .sidebar-header h3 {
+            font-size: 14px;
+            font-weight: 700;
+        }
+
+        .sidebar-header p {
+            font-size: 11px;
+            color: var(--text-muted);
+        }
+
+        .sidebar-nav {
+            list-style: none;
+        }
+
+        .sidebar-nav li a {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 18px;
+            font-size: 13px;
+            color: var(--text-muted);
+            text-decoration: none;
+            transition: all 0.15s;
+            font-weight: 500;
+        }
+
+        .sidebar-nav li a:hover {
+            background: #f8fafa;
+            color: var(--text);
+        }
+
+        .sidebar-nav li a.active {
+            background: var(--teal);
+            color: #fff;
+            border-radius: 0;
+        }
+
+        .sidebar-nav li a svg {
+            width: 16px;
+            height: 16px;
+            flex-shrink: 0;
+        }
+
+        .sidebar-footer {
+            margin-top: auto;
+            padding: 16px 18px 0;
+            border-top: 1px solid var(--border);
+        }
+
+        .system-online {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 12px;
+            color: var(--green-accent);
+            font-weight: 500;
+        }
+
+        .dot-green {
+            width: 8px;
+            height: 8px;
+            background: var(--green-accent);
+            border-radius: 50%;
+        }
+
+        .main-content {
+            flex: 1;
+            padding: 32px 40px;
+            background: var(--bg);
+            overflow-y: auto;
+        }
+
+        /* PAGE STYLES */
+        .page {
+            display: none;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        .page-full {
+            display: none;
+            min-height: calc(100vh - 56px);
+        }
+
+        .page-full.active {
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* HERO PAGE background */
+        .hero-bg {
+            background: linear-gradient(135deg, #6ba07a 0%, #3a6b50 40%, #1a3d2a 100%);
+        }
+
+        /* IFRAME & MAP CONTAINER */
+        .iframe-container {
+            width: 100%;
+            height: 100%;
+            border: none;
+            display: block;
+        }
+
+        .map-wrapper {
+            position: relative;
+            flex: 1;
+            width: 100%;
+            background: #e5e7eb;
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav>
+        <a href="#" class="nav-logo" onclick="showPage('home'); setActiveNav('nav-home')">
+            <svg viewBox="0 0 28 28" fill="none">
+                <rect width="28" height="28" rx="6" fill="rgba(255,255,255,0.15)" />
+                <path d="M14 5L20 10H8L14 5Z" fill="#f5c518" />
+                <path d="M8 10L14 23L20 10H8Z" fill="rgba(255,255,255,0.9)" />
+            </svg>
+            Batam EcoPortal
+        </a>
+        <ul class="nav-links" id="mainNav">
+            <li><a href="#" class="active" id="nav-home" onclick="showPage('home');setActiveNav('nav-home')">Home</a></li>
+            <li><a href="#" id="nav-climate" onclick="showPage('climate');setActiveNav('nav-climate')">Climate Tracking</a></li>
+            <li><a href="#" id="nav-traffic" onclick="showPage('traffic');setActiveNav('nav-traffic')">Traffic Map</a></li>
+            <li><a href="#" id="nav-waste" onclick="showPage('waste');setActiveNav('nav-waste')">Waste Management</a></li>
+        </ul>
+        <div class="nav-actions">
+            <button class="btn-register" onclick="showPage('register')">Register</button>
+            <button class="btn-login" onclick="showPage('login')">Login</button>
+        </div>
+    </nav>
+
+    <div class="page active" id="page-home">
+        <div class="hero">
+            <div style="width:100%;height:100%;background:linear-gradient(180deg,#7a9b6e 0%,#3d6b40 35%,#1e3d20 70%,#0f2010 100%);display:flex;align-items:flex-end;">
+                <div style="padding:0 0 100px 0;width:100%;"></div>
+            </div>
+            <div class="hero-overlay"></div>
+            <div class="hero-content">
+                <h1>Mari Bersama Menjaga Hutan Dengan Mengikuti Gerakan Menanam 1.000 Pohon</h1>
+            </div>
+            <button class="hero-arrow left">‹</button>
+            <button class="hero-arrow right">›</button>
+        </div>
+
+        <div class="ecopulse-wrap">
+            <div class="ecopulse-card">
+                <div>
+                    <span class="live-badge">LIVE UPDATES</span>
+                    <h2>Batam EcoPulse</h2>
+                    <p>AI Summary: Overall conditions are favorable today. Air quality remains 'Good' across most districts, with minor congestion reported near Nagoya Hill. Humidity is high, indicative of the rainy season approach.</p>
+                    <button class="btn-detail">Detailed Report</button>
+                </div>
+                <div class="eco-stats">
+                    <div class="eco-stat-card">
+                        <div class="stat-icon">🌡️</div>
+                        <div class="stat-value">32°</div>
+                        <div class="stat-label">Celsius</div>
+                    </div>
+                    <div class="eco-stat-card">
+                        <div class="stat-icon" style="font-size:22px;">💨</div>
+                        <div class="stat-value">45</div>
+                        <div class="aqi-badge">Good AQI</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="metrics-section">
+            <div class="section-header">
+                <h2>Environmental Metrics</h2>
+                <a href="#" class="view-all">View All Data →</a>
+            </div>
+            <div class="metrics-grid">
+                <div class="metric-card">
+                    <div class="metric-card-header">
+                        <div class="metric-icon forest">🌲</div>
+                        <h3 style="color:#16a34a;">Forest Cover</h3>
+                    </div>
+                    <div class="metric-value">42%</div>
+                    <div class="metric-desc">+1.2% increase since last quarter due to massive replanting in Nongsa.</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-card-header">
+                        <div class="metric-icon emission">🏭</div>
+                        <h3>Emissions</h3>
+                    </div>
+                    <div class="metric-value">-5%</div>
+                    <div class="metric-desc">Reduction in industrial CO2 emissions primarily in Batu Ampar sector.</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-card-header">
+                        <div class="metric-icon renewable">☀️</div>
+                        <h3>Renewables</h3>
+                    </div>
+                    <div class="metric-value">18%</div>
+                    <div class="metric-desc">Of city power now sourced from new solar farms near Barelang.</div>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <div class="footer-brand">
+                <div class="logo">
+                    <svg width="20" height="20" viewBox="0 0 28 28" fill="none">
+                        <rect width="28" height="28" rx="6" fill="rgba(255,255,255,0.15)" />
+                        <path d="M14 5L20 10H8L14 5Z" fill="#f5c518" />
+                        <path d="M8 10L14 23L20 10H8Z" fill="rgba(255,255,255,0.9)" />
+                    </svg>
+                    Batam EcoPortal
+                </div>
+                <p>© 2024 Batam City Environmental Stewardship. Modernizing urban mobility through data-driven transparency.</p>
+            </div>
+            <div class="footer-links">
+                <a href="#">Environmental Policy</a>
+                <a href="#">Public API</a>
+                <a href="#">Accessibility</a>
+                <a href="#">Legal</a>
+            </div>
+        </footer>
+    </div>
+
+    <div class="page-full" id="page-traffic">
+        <div class="map-wrapper">
+            <iframe class="iframe-container" src="https://maps.google.com/maps?q=Batam&t=&z=13&ie=UTF8&iwloc=&output=embed"></iframe>
+            
+            <div style="position:absolute; bottom:16px; right:16px; background:#fff; border-radius:10px; padding:16px; box-shadow:0 4px 14px rgba(0,0,0,0.12); z-index:10; width: 220px;">
+                <div style="font-size:13px; font-weight:700; margin-bottom:10px;">Legenda Jalur</div>
+                <div style="display:flex; flex-direction:column; gap:8px; font-size:12px;">
+                    <div style="display:flex; align-items:center; gap:8px;">
+                        <div style="width:24px; height:3px; background:var(--teal); border-radius:2px;"></div>Lancar (Emisi Rendah)
+                    </div>
+                    <div style="display:flex; align-items:center; gap:8px;">
+                        <div style="width:24px; height:3px; background:var(--yellow); border-radius:2px;"></div>Padat (Emisi Sedang)
+                    </div>
+                    <div style="display:flex; align-items:center; gap:8px;">
+                        <div style="width:24px; height:3px; background:var(--red); border-radius:2px;"></div>Macet (Emisi Tinggi)
+                    </div>
+                    <div style="display:flex; align-items:center; gap:8px;">
+                        <div style="width:14px; height:14px; border-radius:50%; border:2px solid var(--teal); box-sizing:border-box;"></div>
+                        Zona Prioritas Eco
+                    </div>
+                </div>
+            </div>
+
+            <button style="position:absolute; bottom:16px; right:250px; background:var(--yellow); border:none; padding:14px 20px; border-radius:10px; font-size:14px; font-weight:700; cursor:pointer; font-family:inherit; box-shadow:0 4px 14px rgba(0,0,0,0.2); z-index:10; display:flex; align-items:center; gap:8px;">
+                🔔 Report Incident
+            </button>
+        </div>
+    </div>
+
+    <div class="page" id="page-climate" style="padding: 40px 80px;">
+        <h2>Climate Tracking Dashboard</h2>
+        <p style="color: var(--text-muted); margin-top: 10px;">Halaman analisis iklim dan cuaca wilayah Batam.</p>
+    </div>
+
+    <div class="page" id="page-waste" style="padding: 40px 80px;">
+        <h2>Waste Management System</h2>
+        <p style="color: var(--text-muted); margin-top: 10px;">Halaman pelacakan dan manajemen pembuangan sampah kota.</p>
+    </div>
+
+    <div class="page" id="page-register" style="background:#e8f0f8; min-height:calc(100vh - 56px); flex-direction:column;">
+        <div style="flex:1; display:flex; align-items:center; justify-content:center; padding:48px 20px;">
+            <div style="background:#fff; border-radius:14px; padding:48px 44px; width:100%; max-width:520px; box-shadow:0 4px 24px rgba(0,0,0,0.08);">
+                <h1 style="font-size:28px; font-weight:800; margin-bottom:8px;">Halaman Pendaftaran</h1>
+                <p style="font-size:14px; color:var(--text-muted); margin-bottom:32px;">Bergabunglah dengan ekosistem digital untuk memantau kesehatan kota kita.</p>
+                <form onsubmit="return false;">
+                    <div style="margin-bottom:18px;">
+                        <label style="display:block; font-size:11px; font-weight:700; letter-spacing:0.5px; color:var(--text-muted); margin-bottom:6px;">NAMA LENGKAP</label>
+                        <div style="display:flex; align-items:center; border:1.5px solid var(--border); border-radius:8px; overflow:hidden;">
+                            <span style="padding:0 14px; color:var(--text-muted);">👤</span>
+                            <input type="text" placeholder="Contoh: Budi Santoso" style="flex:1; border:none; outline:none; padding:12px 0; font-size:14px; font-family:inherit;">
+                        </div>
+                    </div>
+                    <div style="margin-bottom:18px;">
+                        <label style="display:block; font-size:11px; font-weight:700; letter-spacing:0.5px; color:var(--text-muted); margin-bottom:6px;">ALAMAT EMAIL</label>
+                        <div style="display:flex; align-items:center; border:1.5px solid var(--border); border-radius:8px; overflow:hidden;">
+                            <span style="padding:0 14px; color:var(--text-muted);">✉️</span>
+                            <input type="email" placeholder="nama@email.com" style="flex:1; border:none; outline:none; padding:12px 0; font-size:14px; font-family:inherit;">
+                        </div>
+                    </div>
+                    <div style="margin-bottom:18px;">
+                        <label style="display:block; font-size:11px; font-weight:700; letter-spacing:0.5px; color:var(--text-muted); margin-bottom:6px;">NOMOR TELEPON</label>
+                        <div style="display:flex; align-items:center; border:1.5px solid var(--border); border-radius:8px; overflow:hidden;">
+                            <span style="padding:0 14px; color:var(--text-muted);">📞</span>
+                            <input type="tel" placeholder="0812xxxx" style="flex:1; border:none; outline:none; padding:12px 0; font-size:14px; font-family:inherit;">
+                        </div>
+                    </div>
+                    <div style="margin-bottom:18px;">
+                        <label style="display:block; font-size:11px; font-weight:700; letter-spacing:0.5px; color:var(--text-muted); margin-bottom:6px;">KATA SANDI</label>
+                        <div style="display:flex; align-items:center; border:1.5px solid var(--border); border-radius:8px; overflow:hidden;">
+                            <span style="padding:0 14px; color:var(--text-muted);">🔒</span>
+                            <input type="password" value="........" style="flex:1; border:none; outline:none; padding:12px 0; font-size:14px; font-family:inherit;">
+                            <span style="padding:0 14px; color:var(--text-muted); cursor:pointer;">👁️</span>
+                        </div>
+                    </div>
+                    <div style="margin-bottom:18px;">
+                        <label style="display:block; font-size:11px; font-weight:700; letter-spacing:0.5px; color:var(--text-muted); margin-bottom:6px;">KELURAHAN/KECAMATAN</label>
+                        <div style="display:flex; align-items:center; border:1.5px solid var(--border); border-radius:8px; overflow:hidden;">
+                            <span style="padding:0 14px; color:var(--text-muted);">📍</span>
+                            <select style="flex:1; border:none; outline:none; padding:12px 0; font-size:14px; font-family:inherit; background:transparent; appearance:none; color:var(--text-muted);">
+                                <option>Pilih Wilayah Anda</option>
+                                <option>Batam Center</option>
+                                <option>Lubuk Baja</option>
+                                <option>Nongsa</option>
+                                <option>Sekupang</option>
+                                <option>Batu Ampar</option>
+                            </select>
+                        </div>
+                    </div>
+                    <button type="submit" style="width:100%; background:var(--yellow); color:var(--teal-dark); border:none; padding:14px; border-radius:8px; font-size:16px; font-weight:800; cursor:pointer; transition:background 0.2s;">Daftar Sekarang</button>
+                    <p style="text-align:center; margin-top:20px; font-size:14px; color:var(--text-muted);">Sudah punya akun? <a href="#" style="color:var(--teal); font-weight:600;" onclick="showPage('login')">Masuk</a></p>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="page" id="page-login" style="background:linear-gradient(135deg,#e8f4f0 0%,#d0eae6 100%); min-height:calc(100vh - 56px); flex-direction:column; align-items:center; justify-content:center; padding:48px 20px;">
+        <div style="text-align:center; margin-bottom:28px;">
+            <div style="width:64px; height:64px; background:var(--teal); border-radius:14px; display:flex; align-items:center; justify-content:center; margin:0 auto 14px; font-size:28px;">🌿</div>
+            <div style="font-size:20px; font-weight:800; color:var(--teal);">Batam EcoPortal</div>
+            <div style="font-size:13px; color:var(--text-muted);">City Environmental Stewardship</div>
+        </div>
+        <div style="background:#fff; border-radius:14px; padding:40px 44px; width:100%; max-width:460px; box-shadow:0 4px 24px rgba(0,0,0,0.08);">
+            <h2 style="font-size:20px; font-weight:700; text-align:center; margin-bottom:28px;">Secure Sign In</h2>
+            <form onsubmit="return false;">
+                <div style="margin-bottom:18px;">
+                    <label style="display:block; font-size:11px; font-weight:700; letter-spacing:0.5px; color:var(--text-muted); margin-bottom:6px;">EMAIL ADDRESS</label>
+                    <div style="display:flex; align-items:center; border:1.5px solid var(--border); border-radius:8px; overflow:hidden;">
+                        <span style="padding:0 14px; color:var(--text-muted);">✉️</span>
+                        <input type="email" placeholder="name@city.gov" style="flex:1; border:none; outline:none; padding:12px 0; font-size:14px; font-family:inherit;">
+                    </div>
+                </div>
+                <div style="margin-bottom:24px;">
+                    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
+                        <label style="font-size:11px; font-weight:700; letter-spacing:0.5px; color:var(--text-muted);">PASSWORD</label>
+                        <a href="#" style="font-size:12px; color:var(--teal); font-weight:600; text-decoration:none;">Forgot Password?</a>
+                    </div>
+                    <div style="display:flex; align-items:center; border:1.5px solid var(--border); border-radius:8px; overflow:hidden;">
+                        <span style="padding:0 14px; color:var(--text-muted);">🔒</span>
+                        <input type="password" value="......." style="flex:1; border:none; outline:none; padding:12px 0; font-size:14px; font-family:inherit;">
+                    </div>
+                </div>
+                <button type="submit" style="width:100%; background:var(--yellow); color:var(--teal-dark); border:none; padding:14px; border-radius:8px; font-size:16px; font-weight:700; cursor:pointer;">Sign In →</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        function showPage(pageId) {
+            // Sembunyikan semua halaman standard & full-page
+            const pages = document.querySelectorAll('.page, .page-full');
+            pages.forEach(page => {
+                page.style.display = 'none';
+                page.classList.remove('active');
+            });
+
+            // Tampilkan halaman target
+            const targetPage = document.getElementById('page-' + pageId);
+            if (targetPage) {
+                if (targetPage.classList.contains('page-full')) {
+                    targetPage.style.display = 'flex'; // untuk layout map full screen
+                } else {
+                    targetPage.style.display = pageId === 'register' || pageId === 'login' ? 'flex' : 'block';
+                }
+                targetPage.classList.add('active');
+            }
+        }
+
+        function setActiveNav(navId) {
+            // Hapus kelas active dari semua link navbar
+            const navLinks = document.querySelectorAll('.nav-links a');
+            navLinks.forEach(link => link.classList.remove('active'));
+
+            // Tambahkan kelas active pada menu yang diklik
+            const activeLink = document.getElementById(navId);
+            if (activeLink) {
+                activeLink.classList.add('active');
+            }
+        }
+    </script>
+</body>
+
+</html>
